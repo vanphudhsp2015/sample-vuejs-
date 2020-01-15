@@ -5,7 +5,7 @@
       Contact
    </router-link>
     <router-link :to="'/'" class="btn btn-default">
-      home
+      home1
    </router-link>
   <div class="content">
     <FormAntd 
