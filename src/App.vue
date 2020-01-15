@@ -2,7 +2,7 @@
   <div id="app">
   <Header />
   <router-link :to="'/contact'" class="btn btn-default">
-      Contact
+      Contact1
    </router-link>
     <router-link :to="'/'" class="btn btn-default">
       home1
