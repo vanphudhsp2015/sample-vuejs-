@@ -1,6 +1,12 @@
 <template>
   <div id="app">
   <Header />
+  <router-link :to="'/contact'" class="btn btn-default">
+      Contact
+   </router-link>
+    <router-link :to="'/'" class="btn btn-default">
+      home
+   </router-link>
   <div class="content">
     <FormAntd 
       v-bind:dataEdit="dataEdit" 
@@ -12,6 +18,7 @@
       @deleteItem="deleteItem"
       @editItem="editItem"
     />
+    <router-view></router-view>
   </div>
   <Footer />
   </div>
