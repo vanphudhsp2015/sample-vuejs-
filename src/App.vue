@@ -10,6 +10,9 @@
    <router-link :to="'/'" class="btn btn-default">
       home3
    </router-link>
+   <router-link :to="'/'" class="btn btn-default">
+      home4
+   </router-link>
   <div class="content">
     <FormAntd 
       v-bind:dataEdit="dataEdit" 
