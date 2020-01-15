@@ -16,9 +16,9 @@
 <script>
 const columns = [
     {
-      title: 'Tên',
-      dataIndex: 'ten',
-      key: 'ten',
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
     },
     {
       title: 'Action',

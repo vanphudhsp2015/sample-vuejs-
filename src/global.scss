@@ -1,0 +1,12 @@
+label.ant-form-item-required {
+  font-weight: bold;
+  margin-right: 10px;
+  &:after {
+    content: '';
+  }
+  &:before{
+    position: absolute;
+    right: -5px;
+    top: 5px;
+  }
+}
