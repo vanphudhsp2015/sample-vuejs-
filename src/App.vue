@@ -7,6 +7,9 @@
     <router-link :to="'/'" class="btn btn-default">
       home1
    </router-link>
+   <router-link :to="'/'" class="btn btn-default">
+      home3
+   </router-link>
   <div class="content">
     <FormAntd 
       v-bind:dataEdit="dataEdit" 
