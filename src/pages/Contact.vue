@@ -69,14 +69,13 @@ export default {
                     id: this.id,
                     ...values
                   }
-                }).then(()=>{
-                  this.loading = false;
-                  this.visible = false
-                  this.form.resetFields();
+                }).then((response)=>{
+                  if(response){
+                    this.loading = false;
+                    this.visible = false
+                    this.form.resetFields();
+                  }
                 });
-               this.loading = false;
-                  this.visible = false
-               this.isEdit = false
              } else {
                 this.$store.dispatch({
                   type: 'saveBlog',

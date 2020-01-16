@@ -32,8 +32,15 @@ const actions = {
   },
   // update blog
   updateBlog(context, blog) {
-    blogsApi.updateBlog(blog.data.id, blog.data, (response) => {
-      if (response) context.commit('UPDATE_SUCESS', response.data)
+    return new Promise((resolve, reject) => {
+      blogsApi.updateBlog(blog.data.id, blog.data, (response) => {
+        if (response) {
+          resolve(response);
+          context.commit('UPDATE_SUCESS', response.data)
+        }
+      }, error=>{
+        if(error) reject(error)
+      })
     })
   },
   // delete blog
