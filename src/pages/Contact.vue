@@ -25,13 +25,12 @@
         </a-button>
       </template>
     </a-modal>
-    <TableAnt :data="blogs" :loadingTable="loadingTable" @deleteItem="removeItem($event)" @editItem="editItem($event)" />
+    <TableAnt :data="all" :loadingTable="loadingdata" @deleteItem="removeItem($event)" @editItem="editItem($event)" />
   </div>
 </template>
 
 <script>
 import TableAnt from '../components/shared/TableAnt';
-import axios from 'axios'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -54,55 +53,39 @@ export default {
   },
   methods: {
     removeItem(id){
-       axios.request({
-          url: `https://5caacc7969c15c00148494dc.mockapi.io/product/${id}`,
-          method: 'DELETE',
-      }).then(response=>{
-        if(response){
-          this.data = this.data.filter(item => item.id !== id)
-        }
-      }).catch(error=>{
-          // eslint-disable-next-line no-console
-          console.log(error)
-      })
+      this.$store.dispatch({
+        type: 'destroy',
+        id
+      });
     },
     handleOk(){
       this.form.validateFields((err, values) => {
         if (!err) {
           this.loading = true;
              if(this.isEdit){
-                axios.request({
-                 url: `https://5caacc7969c15c00148494dc.mockapi.io/product/${this.id}`,
-                 method: 'PUT',
-                 data: {
-                   name: values.name
-                 }
-               }).then(response=>{
-                  this.data = this.data.map(item=> item.id === this.id ? response.data : item)
+              this.$store.dispatch({
+                  type: 'updateBlog',
+                  data: {
+                    id: this.id,
+                    ...values
+                  }
+                }).then(()=>{
                   this.loading = false;
                   this.visible = false
                   this.form.resetFields();
-               }).catch(error=>{
-                  // eslint-disable-next-line no-console
-                  console.log(error)
-               })
+                });
+               this.loading = false;
+                  this.visible = false
                this.isEdit = false
              } else {
-               axios.request({
-                 url: 'https://5caacc7969c15c00148494dc.mockapi.io/product',
-                 method: 'POST',
-                 data: {
-                   name: values.name
-                 }
-               }).then(response=>{
-                  this.data = [...this.data, response.data];
+                this.$store.dispatch({
+                  type: 'saveBlog',
+                  data: values
+                }).then(()=>{
                   this.loading = false;
                   this.visible = false
                   this.form.resetFields();
-               }).catch(error=>{
-                  // eslint-disable-next-line no-console
-                  console.log(error)
-               })
+                });
              }
         }
       });
@@ -116,20 +99,18 @@ export default {
     },
     editItem(id){
       this.visible = true;
-      this.name = this.data.find(item=> item.id === id).name
-      this.id = this.data.find(item=> item.id === id).id
+      this.name = this.all.find(item=> item.id === id).name
+      this.id = this.all.find(item=> item.id === id).id
       this.isEdit = true
     },
     onLoadData(){
-      this.loadingTable = true;
-      this.$store.dispatch('getAllBlogs').then(()=>{
-        this.loadingTable = false;
-      })
+      this.$store.dispatch('getAllBlogs');
     },
   },
   computed: mapGetters({
-    blogs: 'allBlogs',
-    messages: 'messages'
+    all: 'all',
+    message: 'message',
+    loadingdata: 'loadingdata'
   }),
   beforeMount(){
   },

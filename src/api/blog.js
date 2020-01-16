@@ -16,7 +16,7 @@ function getBlogsApi (cb) {
 }
 
 function saveDataApi (data, cb) {
-  api.post('product', data)
+  api.post('product', {name: data.name})
   .then(function (response) {
     cb(response)
   })
@@ -27,11 +27,15 @@ function saveDataApi (data, cb) {
 }
 
 function updateData (idblog, data, cb) {
-  api.put('product/' + idblog, data)
-  .then(() => {
-    cb({ status: 201 })
-  })
-  .catch((error) => {
+  api.request({
+    method: 'PUT',
+    url: `product/${idblog}`,
+    data: {
+      name: data.name
+    }
+  }).then(response=>{
+    cb(response)
+  }).catch((error) => {
     // eslint-disable-next-line no-console
     console.log(error)
   })
