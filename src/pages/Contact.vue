@@ -66,7 +66,7 @@ export default {
       });
     },
     showModal(){
-      this.visible = true
+      this.visible = true;
     },
     handleCancel(){
       this.visible = false,
