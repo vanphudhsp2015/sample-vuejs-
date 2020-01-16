@@ -25,13 +25,14 @@
         </a-button>
       </template>
     </a-modal>
-    <TableAnt :data="data" :loadingTable="loadingTable" @deleteItem="removeItem($event)" @editItem="editItem($event)" />
+    <TableAnt :data="blogs" :loadingTable="loadingTable" @deleteItem="removeItem($event)" @editItem="editItem($event)" />
   </div>
 </template>
 
 <script>
 import TableAnt from '../components/shared/TableAnt';
 import axios from 'axios'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'contact',
@@ -121,19 +122,23 @@ export default {
     },
     onLoadData(){
       this.loadingTable = true;
-      axios
-      .get('https://5caacc7969c15c00148494dc.mockapi.io/product')
-      .then(response => {
+      this.$store.dispatch('getAllBlogs').then(()=>{
         this.loadingTable = false;
-        this.data = response.data
       })
-    }
+    },
   },
+  computed: mapGetters({
+    blogs: 'allBlogs',
+    messages: 'messages'
+  }),
   beforeMount(){
+  },
+  created(){
+    // this.onLoadData();
   },
   mounted () {
     this.onLoadData();
-  }
+  },
 }
 </script>
 
