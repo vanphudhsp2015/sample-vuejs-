@@ -3,6 +3,7 @@
  :columns="columns" 
  :dataSource="data" 
   :rowKey="record => record.id"
+  :loading="loadingTable"
  >
     <a slot="name" slot-scope="text" href="javascript:;">{{text}}</a>
     <span slot="customTitle"><a-icon type="smile-o" /> Name</span>
@@ -36,6 +37,10 @@ export default {
   props: {
     data:{
       type: Array,
+      required: true
+    },
+    loadingTable: {
+      type: Boolean,
       required: true
     }
   },
