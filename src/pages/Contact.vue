@@ -117,6 +117,8 @@ export default {
     // this.onLoadData();
   },
   mounted () {
+    // eslint-disable-next-line no-console
+    console.log(this.$router.history  )
     this.onLoadData();
   },
 }
